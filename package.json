@@ -1,6 +1,6 @@
 {
   "name": "pii-cyclops",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "Library for encrypting, decrypting PII and search term with MD5",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
