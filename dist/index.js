@@ -1,12 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.encryptText = encryptText;
-exports.decryptText = decryptText;
-exports.searchTerm = searchTerm;
-exports.generateMd5Terms = generateMd5Terms;
-exports.hashText = hashText;
-exports.maskingText = maskingText;
-exports.maskSensitiveData = maskSensitiveData;
+exports.maskSensitiveData = exports.maskingText = exports.hashText = exports.generateMd5Terms = exports.searchTerm = exports.decryptText = exports.encryptText = void 0;
 const CryptoJS = require("crypto-js");
 const md5 = require("md5");
 function encryptText(text, key) {
@@ -23,6 +17,7 @@ function encryptText(text, key) {
         terms
     };
 }
+exports.encryptText = encryptText;
 function decryptText(encryptedText, key) {
     if (typeof encryptedText !== 'string' || !encryptedText) {
         throw new Error('Invalid encrypted text: Must be a non-empty string');
@@ -45,12 +40,14 @@ function decryptText(encryptedText, key) {
         throw new Error(`Decryption error: ${error.message}`);
     }
 }
+exports.decryptText = decryptText;
 function searchTerm(text) {
     if (typeof text !== 'string') {
         return '';
     }
     return md5(text);
 }
+exports.searchTerm = searchTerm;
 function generateMd5Terms(input) {
     if (typeof input !== 'string') {
         return [];
@@ -58,12 +55,14 @@ function generateMd5Terms(input) {
     const words = input.split(' ').filter(word => word.trim() !== '');
     return words.map(word => md5(word.toLowerCase()));
 }
+exports.generateMd5Terms = generateMd5Terms;
 function hashText(word) {
     if (typeof word !== 'string') {
         return '';
     }
     return md5(word);
 }
+exports.hashText = hashText;
 function maskingText(word) {
     if (typeof word !== 'string' || word.length === 0) {
         return '';
@@ -76,6 +75,7 @@ function maskingText(word) {
     const middleChars = '*'.repeat(word.length - 2);
     return firstChar + middleChars + lastChar;
 }
+exports.maskingText = maskingText;
 function maskSensitiveData(text) {
     if (typeof text !== 'string') {
         return '';
@@ -93,15 +93,5 @@ function maskSensitiveData(text) {
         .replace(phoneRegex, maskWithRandomStars)
         .replace(emailRegex, maskWithRandomStars);
 }
-const key = 'my-secret-key-123';
-const text = 'Hello, World!';
-try {
-    const { encrypted } = encryptText(text, key);
-    console.log('Encrypted:', encrypted);
-    const decrypted = decryptText(encrypted, key);
-    console.log('Decrypted:', decrypted);
-}
-catch (error) {
-    console.error('Error:', error.message);
-}
+exports.maskSensitiveData = maskSensitiveData;
 //# sourceMappingURL=index.js.map
